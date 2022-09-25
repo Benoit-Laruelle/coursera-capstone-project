@@ -1,3 +1,6 @@
+PART A. BUILD A BASELINE MODEL
+
+
 1) DOWNLOAD AND CLEAN DATASET:
 
 #!pip install numpy==1.21.4
@@ -82,13 +85,32 @@ model.add(Dense(1))
 model.compile(optimizer=´adam´, loss=´mean_square_error´)
 
 
-11) TRAIN AND TEST THE NETWORK (USING THE FIT METHOD. LEAVE OUT 30% OF THE DATA FOR VALIDATION AND TRAIN THE MODEL FOR 50 EPOCHS)
+11a) TRAIN AND TEST THE NETWORK (USING THE FIT METHOD. LEAVE OUT 30% OF THE DATA FOR VALIDATION AND TRAIN THE MODEL FOR 50 EPOCHS)
 
 model = regression_model()
 
 model.fit(predictors_norm, target, validation_split=0.3, epochs=50, verbose=2)
 
 
+11b) TRAIN AND TEST THE NETWORK (USING THE FIT METHOD. LEAVE OUT 30% OF THE DATA FOR VALIDATION AND TRAIN THE MODEL FOR 100 EPOCHS)
+
+model = regression_model()
+
+model.fit(predictors_norm, target, validation_split=0.3, epochs=100, verbose=2)
+
+
 12) PREDICTION / EVALUATION:
 
 predictions = model.predict(test_data)
+
+
+
+PART B. NORMALIZE THE DATA
+
+
+
+
+
+
+
+
