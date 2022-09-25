@@ -1,0 +1,16 @@
+import keras
+from keras.models import Sequential
+fromkeras.layers import Dense
+
+model = sequential()
+
+n_cols = concrete_data.shape[1]
+
+model.add(Dense(5, activation=´relu´, input_shape=(n_cols,)))
+model.add(Dense(5, activation=´relu´))
+model.add(Dense(1))
+
+model.compile(optimizer=´adam´, loss=´mean_square_error´)
+model.fit(predictors, target)
+
+predictions = model.predict(test_data)
