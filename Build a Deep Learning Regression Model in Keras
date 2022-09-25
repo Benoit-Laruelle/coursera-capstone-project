@@ -1,16 +1,95 @@
+DOWNLOAD AND CLEAN DATASET:
+
+#!pip install numpy==1.21.4
+#!pip install pandas==1.3.4
+#!pip install keras==2.1.6
+
+import pandas as pd
+import numpy as np
+
+
+DOWNLOAD THE DATA AND READ IT INTO A PANDAS DATAFRAME:
+
+concrete_data = pd.read_csv('https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/DL0101EN/labs/data/concrete_data.csv')
+concrete_data.head()
+
+The dataset is about the compressive strength of different samples of concrete based on the volumes of the different ingredients that were used to make them. Ingredients include:
+1. Cement
+2. Blast Furnace Slag
+3. Fly Ash
+4. Water
+5. Superplasticizer
+6. Coarse Aggregate
+7. Fine Aggregate
+
+
+TO CHECK HOW MANY DATAPOINTS WE HAVE:
+
+concrete_data.shape
+
+
+TO CHECK THE DATASET FOR ANY MISSING VALUES:
+
+concrete_data.describe()
+
+concrete_data.isnull().sum()
+
+
+SPLIT DATA INTO PREDICTORS AND TARGET:
+
+concrete_data_columns = concrete_data.columns
+
+predictors = concrete_data[concrete_data_columns[concrete_data_columns != 'Strength']] # all columns except Strength
+target = concrete_data['Strength'] # Strength column
+
+
+TO DO A SANITY CHECK OF THE PREDICTORS AND THE TARGET DATAFRAMES:
+
+predictors.head()
+
+target.head()
+
+
+NORMALIZE THE DATA BY SUBTRACTING THE MEAN AND DIVIDING BY THE STANDARD DEVIATION:
+
+predictors_norm = (predictors - predictors.mean()) / predictors.std()
+predictors_norm.head()
+
+
+SAVE THE NUMBER OF PREDICTORS TO n_cols WE WILL NEED THIS NUMBER WHEN BUILDING OUR NETWORK:
+
+n_cols = predictors_norm.shape[1] # number of predictors
+
+
+IMPORT KERAS LIBRARY: (TENSOR FLOW BACKEND IS USED TO INSTALL THE KERAS LIBRARY)
+
 import keras
 from keras.models import Sequential
 fromkeras.layers import Dense
+
+
+BUILD A NEURAL NETWORK: (REGRESSION MODEL THAT HAS 2 HIDDEN LAYERS, EACH OF 50 HIDDEN UNITS)
+
+def regression_model():
 
 model = sequential()
 
 n_cols = concrete_data.shape[1]
 
-model.add(Dense(5, activation=´relu´, input_shape=(n_cols,)))
-model.add(Dense(5, activation=´relu´))
+model.add(Dense(50, activation=´relu´, input_shape=(n_cols,)))
+model.add(Dense(50, activation=´relu´))
 model.add(Dense(1))
 
 model.compile(optimizer=´adam´, loss=´mean_square_error´)
-model.fit(predictors, target)
+
+
+TRAIN AND TEST THE NETWORK (USING THE FIT METHOD. LEAVE OUT 30% OF THE DATA FOR VALIDATION AND TRAIN THE MODEL FOR100 EPOCHS)
+
+model = regression_model()
+
+model.fit(predictors_norm, target, validation_split=0.3, epochs=100, verbose=2)
+
+
+PREDICTION / EVALUATION:
 
 predictions = model.predict(test_data)
