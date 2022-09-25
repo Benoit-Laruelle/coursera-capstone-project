@@ -39,7 +39,7 @@ concrete_data.isnull().sum()
 
 concrete_data_columns = concrete_data.columns
 
-predictors = concrete_data[concrete_data_columns[concrete_data_columns != 'Strength']] # all columns except Strength
+predictors = concrete_data[concrete_data_columns[´Cement´,´Blast Furnace Slag´,´Fly Ash´,´Water´,´Superplasticizer´,´Coarse Aggregate´,´Fine Aggregate´,´Ageconcrete´]]
 target = concrete_data['Strength'] # Strength column
 
 
